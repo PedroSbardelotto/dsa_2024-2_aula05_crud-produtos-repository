@@ -73,7 +73,7 @@ test("Quando deletar um id existente, deve remover e retornar o dado", () => {
     expect(resultado).toEqual(produtoDeletadoEsperado);
     expect(produtoRepository.listar().length).toBe(quantidadeEsperada);
 })
-//Cenário de exceção - buscarPorId()
+//Cenário de exceção - Deletar()
 test('Quando buscar por id inexistente, deve retornar undefined', () => {
     const resultado = produtoRepository.deletar(10);
     expect(resultado).toBeUndefined();
