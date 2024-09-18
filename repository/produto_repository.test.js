@@ -40,3 +40,41 @@ test('Quando inserir o produto sem categoria, não deve retornar e não insere n
         //Não deve inserir na lista o produto errado
         expect(produtoRepository.listar()).not.toContainEqual(produtoInseridoErrado);
     })
+
+//Cenário de sucesso - buscarPorId()
+test('Quando buscar por um id existente, deve retornar o dado corretamente', () => {
+    //Vou inserir um segundo produto para o teste (id=2)
+    const produtoInserido = produtoRepository.inserir({
+        nome: "Feijao",
+        categoria: "alimento",
+        preco: 7.00
+    });
+    const resultado = produtoRepository.buscarPorId(produtoInserido.id);
+    //Podemos fazer testes mais simples:
+    expect(resultado).toBeDefined();
+    expect(resultado.nome).toBe("Feijao")
+});
+//Cenário de exceção - buscarPorId()
+test('Quando buscar por id inexistente, deve retornar undefined', () => {
+    const resultado = produtoRepository.buscarPorId(10);
+    expect(resultado).toBeUndefined();
+});
+// Cenario de sucesso- Deletar()
+test("Quando deletar um id existente, deve remover e retornar o dado", () => {
+    const produtoDeletadoEsperado = {
+        nome: "Feijao",
+        categoria: "alimento",
+        preco: 7.00,
+        id: 2
+    };
+    const quantidadeEsperada = 1;
+
+    resultado = produtoRepository.deletar(2);
+    expect(resultado).toEqual(produtoDeletadoEsperado);
+    expect(produtoRepository.listar().length).toBe(quantidadeEsperada);
+})
+//Cenário de exceção - buscarPorId()
+test('Quando buscar por id inexistente, deve retornar undefined', () => {
+    const resultado = produtoRepository.deletar(10);
+    expect(resultado).toBeUndefined();
+});
